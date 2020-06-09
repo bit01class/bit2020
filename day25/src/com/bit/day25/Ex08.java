@@ -12,6 +12,11 @@ public class Ex08 {
 
 	public static void main(String[] args) {
 		// ByteArrayStream
+		
+		// CharArrayStream
+//		java.io.CharArrayReader
+//		java.io.CharArrayWriter
+		
 		String path="data1.txt";
 		File file =new File(path);
 		FileInputStream fis=null;
