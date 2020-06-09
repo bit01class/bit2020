@@ -1,5 +1,7 @@
 package com.bit.day25;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.DataInput;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -93,33 +95,55 @@ public class Ex07 {
 				int math=Integer.parseInt(sc.nextLine());
 				
 				// 임시파일 복사
-				File temp=new File("temp.bin");
-				try {
-					if(!temp.exists())temp.createNewFile();
+//				File temp=new File("temp.bin");
+//				try {
+//					if(!temp.exists())temp.createNewFile();
+//					fis=new FileInputStream(file);
+//					fos=new FileOutputStream(temp);
+//					while(true){
+//						int su=fis.read();
+//						if(su==-1)break;
+//						fos.write(su);
+//					}
+//				} catch (FileNotFoundException e1) {
+//					e1.printStackTrace();
+//				} catch (IOException e) {
+//					e.printStackTrace();
+//				} finally{
+//					try {
+//						if(fis!=null)fis.close();
+//						if(fos!=null)fos.close();
+//					} catch (IOException e) {
+//						e.printStackTrace();
+//					}
+//				}
+				ByteArrayOutputStream baos=null;
+				byte[] copy=null;
+				try{
 					fis=new FileInputStream(file);
-					fos=new FileOutputStream(temp);
+					baos=new ByteArrayOutputStream();
 					while(true){
 						int su=fis.read();
 						if(su==-1)break;
-						fos.write(su);
+						baos.write(su);
 					}
-				} catch (FileNotFoundException e1) {
-					e1.printStackTrace();
+					copy=baos.toByteArray();
 				} catch (IOException e) {
 					e.printStackTrace();
 				} finally{
 					try {
+						if(baos!=null)baos.close();
 						if(fis!=null)fis.close();
-						if(fos!=null)fos.close();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
 				}
-				
+				ByteArrayInputStream bais=null;
 				try {
-					fis=new FileInputStream(temp);
+//					fis=new FileInputStream(temp);
+					bais=new ByteArrayInputStream(copy);
 					fos=new FileOutputStream(file);
-					dis=new DataInputStream(fis);
+					dis=new DataInputStream(bais);
 					dos=new DataOutputStream(fos);
 					while(true){
 						int su=dis.read();
@@ -145,9 +169,9 @@ public class Ex07 {
 					try {
 						if(dis!=null)dis.close();
 						if(dos!=null)dos.close();
-						if(fis!=null)fis.close();
+						if(bais!=null)bais.close();
 						if(fos!=null)fos.close();
-						temp.delete();
+//						temp.delete();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
