@@ -1,5 +1,9 @@
 package com.bit.tcp03;
 
+import java.awt.Frame;
+import java.awt.TextField;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -10,9 +14,34 @@ import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
-public class MultiClient {
+public class MultiClient extends Frame implements ActionListener{
+	TextField tf;
+
+	BufferedWriter bw=null;
+	
+	public MultiClient() {
+		tf=new TextField();
+		tf.addActionListener(this);
+		add(tf);
+		setSize(400,80);
+		setLocation(300,200);
+		setVisible(true);
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		try {
+			bw.write(tf.getText());
+			bw.newLine();
+			bw.flush();
+			tf.setText("");
+			tf.setText("");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
 
 	public static void main(String[] args) {
+		MultiClient me = new MultiClient();
 		Scanner sc=new Scanner(System.in);
 		String ip="192.168.0.169";
 		int port=8080;
@@ -22,7 +51,6 @@ public class MultiClient {
 		InputStreamReader isr=null;
 		OutputStreamWriter osw=null;
 		BufferedReader br=null;
-		BufferedWriter bw=null;
 		try {
 			sock=new Socket(ip,port);
 			is=sock.getInputStream();
@@ -30,12 +58,12 @@ public class MultiClient {
 			isr=new InputStreamReader(is);
 			osw=new OutputStreamWriter(os);
 			br=new BufferedReader(isr);
-			bw=new BufferedWriter(osw);
+			me.bw=new BufferedWriter(osw);
 			
 			while(true){
-				bw.write(sc.nextLine());
-				bw.newLine();
-				bw.flush();
+//				bw.write(sc.nextLine());
+//				bw.newLine();
+//				bw.flush();
 				String msg=br.readLine();
 				if(msg==null)break;
 				if(msg.isEmpty())break;
@@ -45,7 +73,7 @@ public class MultiClient {
 //			e.printStackTrace();
 		} finally {
 			try {
-				if(bw!=null)bw.close();
+				if(me.bw!=null)me.bw.close();
 				if(br!=null)br.close();
 				if(osw!=null)osw.close();
 				if(isr!=null)isr.close();
