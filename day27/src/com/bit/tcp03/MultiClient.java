@@ -16,10 +16,10 @@ import java.util.Scanner;
 
 public class MultiClient extends Frame implements ActionListener{
 	TextField tf;
-
-	BufferedWriter bw=null;
+	Socket sock;
 	
-	public MultiClient() {
+	public MultiClient(Socket sock) {
+		this.sock=sock;
 		tf=new TextField();
 		tf.addActionListener(this);
 		add(tf);
@@ -29,7 +29,13 @@ public class MultiClient extends Frame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
+		OutputStream os=null;
+		OutputStreamWriter osw=null;
+		BufferedWriter bw=null;
 		try {
+			os=sock.getOutputStream();
+			osw=new OutputStreamWriter(os);
+			bw=new BufferedWriter(osw);
 			bw.write(tf.getText());
 			bw.newLine();
 			bw.flush();
@@ -37,33 +43,24 @@ public class MultiClient extends Frame implements ActionListener{
 			tf.setText("");
 		} catch (IOException e1) {
 			e1.printStackTrace();
-		}
+		} 
 	}
 
 	public static void main(String[] args) {
-		MultiClient me = new MultiClient();
-		Scanner sc=new Scanner(System.in);
 		String ip="192.168.0.169";
 		int port=8080;
 		Socket sock=null;
 		InputStream is=null;
-		OutputStream os=null;
 		InputStreamReader isr=null;
-		OutputStreamWriter osw=null;
 		BufferedReader br=null;
 		try {
 			sock=new Socket(ip,port);
+			MultiClient me = new MultiClient(sock);
 			is=sock.getInputStream();
-			os=sock.getOutputStream();
 			isr=new InputStreamReader(is);
-			osw=new OutputStreamWriter(os);
 			br=new BufferedReader(isr);
-			me.bw=new BufferedWriter(osw);
 			
 			while(true){
-//				bw.write(sc.nextLine());
-//				bw.newLine();
-//				bw.flush();
 				String msg=br.readLine();
 				if(msg==null)break;
 				if(msg.isEmpty())break;
@@ -73,11 +70,8 @@ public class MultiClient extends Frame implements ActionListener{
 //			e.printStackTrace();
 		} finally {
 			try {
-				if(me.bw!=null)me.bw.close();
 				if(br!=null)br.close();
-				if(osw!=null)osw.close();
 				if(isr!=null)isr.close();
-				if(os!=null)os.close();
 				if(is!=null)is.close();
 				if(sock!=null)sock.close();
 			} catch (IOException e) {
