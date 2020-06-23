@@ -16,6 +16,9 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import java.sql.*;
+import java.util.Properties;
+
 public class Ex01 extends JFrame {
 	JLabel[] table=new JLabel[50];
 
@@ -133,9 +136,49 @@ public class Ex01 extends JFrame {
 		center.add(label_5);
 
 		for(int i=0; i<table.length; i++){
-			table[i]=new JLabel(i+"");
+			table[i]=new JLabel();
 			center.add(table[i]);
 		}
+		
+		btn1.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String sql="select * from student01";
+				new oracle.jdbc.driver.OracleDriver();
+				
+				String url="jdbc:oracle:thin:@127.0.0.1:1521:xe";
+				java.util.Properties prop=new Properties();
+				prop.setProperty("user", "scott");
+				prop.setProperty("password", "tiger");
+				
+				Connection conn=null;
+				Statement stmt=null;
+				ResultSet rs=null;
+				try {
+					conn=DriverManager.getConnection(url,prop);
+					stmt=conn.createStatement();
+					rs=stmt.executeQuery(sql);
+					int cnt=0;
+					while(rs.next()){
+						for(int i=1; i<6; i++){
+							table[cnt++].setText(rs.getString(i));
+						}
+					}
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				} finally{
+					try {
+						if(rs!=null)rs.close();
+						if(stmt!=null)stmt.close();
+						if(conn!=null)conn.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
+			}
+		});
 	}
 
 }
