@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 
 import java.sql.*;
 import java.util.Properties;
+
 import javax.swing.JTextField;
 
 public class Ex01 extends JFrame {
@@ -313,8 +314,36 @@ public class Ex01 extends JFrame {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				String sql="insert into student01 values (1,'test',100,100,100)";
-				
+				String param1=addNumtf.getText();
+				String param2=addNametf.getText();
+				String param3=addKortf.getText();
+				String param4=addEngtf.getText();
+				String param5=addMathtf.getText();
+				String sql="insert into student01 values (";
+				sql+=param1+",'"+param2+"',"+param3+","+param4+","+param5+")";
+//				insert into student01 values (100,'test',90,80,70)
+//				System.out.println(sql);
+				String url="jdbc:oracle:thin:@localhost:1521:xe";
+				Properties prop=new Properties();
+				prop.setProperty("user", "scott");
+				prop.setProperty("password", "tiger");
+				new oracle.jdbc.driver.OracleDriver();
+				Connection conn=null;
+				Statement stmt=null;
+				try {
+					conn=DriverManager.getConnection(url,prop);
+					stmt=conn.createStatement();
+					stmt.executeUpdate(sql);
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				} finally{
+					try {
+						if(stmt!=null)stmt.close();
+						if(conn!=null)conn.close();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
+				}
 			}
 		});
 	}
