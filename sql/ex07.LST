@@ -1,0 +1,192 @@
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                             
+---------- ---------------------------- --------------------------                                                      
+        10 ACCOUNTING                   NEW YORK                                                                        
+        20 RESEARCH                     DALLAS                                                                          
+        30 SALES                        CHICAGO                                                                         
+        40 OPERATIONS                   BOSTON                                                                          
+        50 관리부                       서울                                                                            
+
+SQL> insert into dept values ('test','test','test');
+insert into dept values ('test','test','test')
+                         *
+1행에 오류:
+ORA-01722: 수치가 부적합합니다 
+
+
+SQL> desc dept;
+ 이름                                                              널?      유형
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ DEPTNO                                                            NOT NULL NUMBER(2)
+ DNAME                                                                      VARCHAR2(14)
+ LOC                                                                        VARCHAR2(13)
+
+SQL> insert into dept values (70,'aaaaaaaaaaaaaaa','test');
+insert into dept values (70,'aaaaaaaaaaaaaaa','test')
+                            *
+1행에 오류:
+ORA-12899: "SCOTT"."DEPT"."DNAME" 열에 대한 값이 너무 큼(실제: 15, 최대값: 14) 
+
+
+SQL> edit ex08.sql
+
+SQL> @ ex08.sql
+
+테이블이 생성되었습니다.
+
+SQL> insert into ex08 values (1,'test1');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select * from ex08;
+
+       NUM NAME                                                                                                         
+---------- --------------------                                                                                         
+         1 test1                                                                                                        
+
+SQL> insert into ex08 values (2,'aaaaaaaaaa');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex08 values (3,'aaaaaaaaaaa');
+insert into ex08 values (3,'aaaaaaaaaaa')
+                           *
+1행에 오류:
+ORA-12899: "SCOTT"."EX08"."NAME" 열에 대한 값이 너무 큼(실제: 11, 최대값: 10) 
+
+
+SQL> select * from ex08;
+
+       NUM NAME                                                                                                         
+---------- --------------------                                                                                         
+         1 test1                                                                                                        
+         2 aaaaaaaaaa                                                                                                   
+
+SQL> insert into ex08 values (3,'한글');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select * from ex08;
+
+       NUM NAME                                                                                                         
+---------- --------------------                                                                                         
+         1 test1                                                                                                        
+         2 aaaaaaaaaa                                                                                                   
+         3 한글                                                                                                         
+
+SQL> insert into ex08 values (4,'한글잘나옴');
+insert into ex08 values (4,'한글잘나옴')
+                           *
+1행에 오류:
+ORA-12899: "SCOTT"."EX08"."NAME" 열에 대한 값이 너무 큼(실제: 15, 최대값: 10) 
+
+
+SQL> insert into ex08 values (4,'한글 잘나옴');
+insert into ex08 values (4,'한글 잘나옴')
+                           *
+1행에 오류:
+ORA-12899: "SCOTT"."EX08"."NAME" 열에 대한 값이 너무 큼(실제: 16, 최대값: 10) 
+
+
+SQL> insert into ex08 values (12345678,'한글도');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> edit ex09.sql
+
+SQL> @ ex09.sql
+
+테이블이 생성되었습니다.
+
+SQL> insert into ex09 values (1,1,1);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(40,3,5);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(40,123,52);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(40,123.2,52);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(40,1234,52);
+insert into ex09 values(40,1234,52)
+                           *
+1행에 오류:
+ORA-01438: 이 열에 대해 지정된 전체 자릿수보다 큰 값이 허용됩니다. 
+
+
+SQL> desc ex09;
+ 이름                                                              널?      유형
+ ----------------------------------------------------------------- -------- --------------------------------------------
+ NUM1                                                                       NUMBER
+ NUM2                                                                       NUMBER(3)
+ NUM3                                                                       NUMBER(5,2)
+
+SQL> insert into ex09 values(40,123.4,52);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(2,2,12345);
+insert into ex09 values(2,2,12345)
+                            *
+1행에 오류:
+ORA-01438: 이 열에 대해 지정된 전체 자릿수보다 큰 값이 허용됩니다. 
+
+
+SQL> insert into ex09 values(2,2,123.45);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(2,2,999);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(2,2,999.99);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(2,2,1000);
+insert into ex09 values(2,2,1000)
+                            *
+1행에 오류:
+ORA-01438: 이 열에 대해 지정된 전체 자릿수보다 큰 값이 허용됩니다. 
+
+
+SQL> insert into ex09 values(2,2,0.12);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(2,2,0.123);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> insert into ex09 values(2,2,0.1234);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select * from ex09;
+
+      NUM1       NUM2       NUM3                                                                                        
+---------- ---------- ----------                                                                                        
+         1          1          1                                                                                        
+        40          3          5                                                                                        
+        40        123         52                                                                                        
+        40        123         52                                                                                        
+        40        123         52                                                                                        
+         2          2     123.45                                                                                        
+         2          2        999                                                                                        
+         2          2     999.99                                                                                        
+         2          2        .12                                                                                        
+         2          2        .12                                                                                        
+         2          2        .12                                                                                        
+
+11 개의 행이 선택되었습니다.
+
+SQL> spool off

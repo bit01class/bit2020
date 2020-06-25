@@ -1,0 +1,837 @@
+SQL> select 1+2+3+4+5 from dept;
+
+ 1+2+3+4+5                                                                                                              
+----------                                                                                                              
+        15                                                                                                              
+        15                                                                                                              
+        15                                                                                                              
+        15                                                                                                              
+        15                                                                                                              
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                             
+---------- ---------------------------- --------------------------                                                      
+        10 ACCOUNTING                   NEW YORK                                                                        
+        20 RESEARCH                     DALLAS                                                                          
+        30 SALES                        CHICAGO                                                                         
+        40 OPERATIONS                   BOSTON                                                                          
+        50 관리부                       서울                                                                            
+
+SQL> select '출력' from dept;
+
+'출력'                                                                                                                  
+------------                                                                                                            
+출력                                                                                                                    
+출력                                                                                                                    
+출력                                                                                                                    
+출력                                                                                                                    
+출력                                                                                                                    
+
+SQL> create table ex10 (num number);
+
+테이블이 생성되었습니다.
+
+SQL> insert into ex10 values (0);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select 1+2+3+4+5 from ex10;
+
+ 1+2+3+4+5                                                                                                              
+----------                                                                                                              
+        15                                                                                                              
+
+SQL> select * from dual;
+
+DU                                                                                                                      
+--                                                                                                                      
+X                                                                                                                       
+
+SQL> select 1+2+3 from dual;
+
+     1+2+3                                                                                                              
+----------                                                                                                              
+         6                                                                                                              
+
+SQL> select '문자'+'열' from dual;
+select '문자'+'열' from dual
+       *
+1행에 오류:
+ORA-01722: 수치가 부적합합니다 
+
+
+SQL> select '문자열'|'열' from dual;
+select '문자열'|'열' from dual
+                   *
+1행에 오류:
+ORA-00996: 연접 연산자는 | 이 아니고 || 입니다 
+
+
+SQL> select '문자열'||'열' from dual;
+
+'문자열'||'열'                                                                                                          
+------------------------                                                                                                
+문자열열                                                                                                                
+
+SQL> select '문자'||'열' from dual;
+
+'문자'||'열'                                                                                                            
+------------------                                                                                                      
+문자열                                                                                                                  
+
+SQL> select dname||'부서는 '||loc||'에 위치합니다' from dept;
+
+DNAME||'부서는'||LOC||'에위치합니다'                                                                                    
+----------------------------------------------------------------------------------------------------------------        
+ACCOUNTING부서는 NEW YORK에 위치합니다                                                                                  
+RESEARCH부서는 DALLAS에 위치합니다                                                                                      
+SALES부서는 CHICAGO에 위치합니다                                                                                        
+OPERATIONS부서는 BOSTON에 위치합니다                                                                                    
+관리부부서는 서울에 위치합니다                                                                                          
+
+SQL> select lower('ABCabc') from dual;
+
+LOWER('ABCAB                                                                                                            
+------------                                                                                                            
+abcabc                                                                                                                  
+
+SQL> select upper('ABCabc') from dual;
+
+UPPER('ABCAB                                                                                                            
+------------                                                                                                            
+ABCABC                                                                                                                  
+
+SQL> select initcap('i am father') from dual;
+
+INITCAP('IAMFATHER')                                                                                                    
+----------------------                                                                                                  
+I Am Father                                                                                                             
+
+SQL> select '문자'||'열' from dual;
+
+'문자'||'열'                                                                                                            
+------------------                                                                                                      
+문자열                                                                                                                  
+
+SQL> select concat('문자','열') from dual;
+
+CONCAT('문자','열'                                                                                                      
+------------------                                                                                                      
+문자열                                                                                                                  
+
+SQL> select length('abc') from dual;
+
+LENGTH('ABC')                                                                                                           
+-------------                                                                                                           
+            3                                                                                                           
+
+SQL> select length('문자열') from dual;
+
+LENGTH('문자열')                                                                                                        
+----------------                                                                                                        
+               3                                                                                                        
+
+SQL> select lengthb('abc') from dual;
+
+LENGTHB('ABC')                                                                                                          
+--------------                                                                                                          
+             3                                                                                                          
+
+SQL> select lengthb('문자열') from dual;
+
+LENGTHB('문자열')                                                                                                       
+-----------------                                                                                                       
+                9                                                                                                       
+
+SQL> select substr('abcdefg',2) from dual;
+
+SUBSTR('ABCD                                                                                                            
+------------                                                                                                            
+bcdefg                                                                                                                  
+
+SQL> select substr('abcdefg',1) from dual;
+
+SUBSTR('ABCDEF                                                                                                          
+--------------                                                                                                          
+abcdefg                                                                                                                 
+
+SQL> select substr('abcdefg',4) from dual;
+
+SUBSTR('                                                                                                                
+--------                                                                                                                
+defg                                                                                                                    
+
+SQL> select substr('abcdefg',7) from dual;
+
+SU                                                                                                                      
+--                                                                                                                      
+g                                                                                                                       
+
+SQL> select substr('abcdefg',4,7) from dual;
+
+SUBSTR('                                                                                                                
+--------                                                                                                                
+defg                                                                                                                    
+
+SQL> select substr('abcdefg',4,6) from dual;
+
+SUBSTR('                                                                                                                
+--------                                                                                                                
+defg                                                                                                                    
+
+SQL> select substr('abcdefg',4,3) from dual;
+
+SUBSTR                                                                                                                  
+------                                                                                                                  
+def                                                                                                                     
+
+SQL> select substrb('abcdefg',4,3) from dual;
+
+SUBSTR                                                                                                                  
+------                                                                                                                  
+def                                                                                                                     
+
+SQL> select substr('한글도잘나옴',4) from dual;
+
+SUBSTR('한글도잘나                                                                                                      
+------------------                                                                                                      
+잘나옴                                                                                                                  
+
+SQL> select substr('한글도잘나옴',4,2) from dual;
+
+SUBSTR('한글                                                                                                            
+------------                                                                                                            
+잘나                                                                                                                    
+
+SQL> select substrb('한글도잘나옴',4,2) from dual;
+
+SUBS                                                                                                                    
+----                                                                                                                    
+                                                                                                                        
+
+SQL> select substrb('한글도잘나옴',10) from dual;
+
+SUBSTRB('한글도잘                                                                                                       
+------------------                                                                                                      
+잘나옴                                                                                                                  
+
+SQL> select substrb('한글도잘나옴',11) from dual;
+
+SUBSTRB('한글도                                                                                                         
+----------------                                                                                                        
+  나옴                                                                                                                  
+
+SQL> select substrb('한글도잘나옴',9) from dual;
+
+SUBSTRB('한글도잘나                                                                                                     
+--------------------                                                                                                    
+ 잘나옴                                                                                                                 
+
+SQL> select substrb('한글도잘나옴',10,6) from dual;
+
+SUBSTRB('한                                                                                                             
+------------                                                                                                            
+잘나                                                                                                                    
+
+SQL> select instr('abcdefg','c') from dual;
+
+INSTR('ABCDEFG','C')                                                                                                    
+--------------------                                                                                                    
+                   3                                                                                                    
+
+SQL> select instrb('abcdefg','c') from dual;
+
+INSTRB('ABCDEFG','C')                                                                                                   
+---------------------                                                                                                   
+                    3                                                                                                   
+
+SQL> select intstr('한글도잘나옴','잘') from dual;
+select intstr('한글도잘나옴','잘') from dual
+       *
+1행에 오류:
+ORA-00904: "INTSTR": 부적합한 식별자 
+
+
+SQL> select instr('한글도잘나옴','잘') from dual;
+
+INSTR('한글도잘나옴','잘')                                                                                              
+--------------------------                                                                                              
+                         4                                                                                              
+
+SQL> select instrb('한글도잘나옴','잘') from dual;
+
+INSTRB('한글도잘나옴','잘')                                                                                             
+---------------------------                                                                                             
+                         10                                                                                             
+
+SQL> select lpad(' abc ',8,'#')from dual;
+
+LPAD('ABC',8,'#'                                                                                                        
+----------------                                                                                                        
+### abc                                                                                                                 
+
+SQL> select rpad(' abc ',8,'#')from dual;
+
+RPAD('ABC',8,'#'                                                                                                        
+----------------                                                                                                        
+ abc ###                                                                                                                
+
+SQL> select rpad(12345,8,'#')from dual;
+
+RPAD(12345,8,'#'                                                                                                        
+----------------                                                                                                        
+12345###                                                                                                                
+
+SQL> select trim(' abc ') from dual;
+
+TRIM('                                                                                                                  
+------                                                                                                                  
+abc                                                                                                                     
+
+SQL> select trim(' abc ')||'#' from dual;
+
+TRIM('AB                                                                                                                
+--------                                                                                                                
+abc#                                                                                                                    
+
+SQL> select trim('a' from 'aaaaaabcaaaaaaa') from dual;
+
+TRIM                                                                                                                    
+----                                                                                                                    
+bc                                                                                                                      
+
+SQL> select replace('abcdefg','cd','CD') from dual;
+
+REPLACE('ABCDE                                                                                                          
+--------------                                                                                                          
+abCDefg                                                                                                                 
+
+SQL> select abs(-100) from dual;
+
+ ABS(-100)                                                                                                              
+----------                                                                                                              
+       100                                                                                                              
+
+SQL> select floor(3.14) from dual;
+
+FLOOR(3.14)                                                                                                             
+-----------                                                                                                             
+          3                                                                                                             
+
+SQL> select round(3.14) from dual;
+
+ROUND(3.14)                                                                                                             
+-----------                                                                                                             
+          3                                                                                                             
+
+SQL> select round(3.54) from dual;
+
+ROUND(3.54)                                                                                                             
+-----------                                                                                                             
+          4                                                                                                             
+
+SQL> select trunc(3.14) from dual;
+
+TRUNC(3.14)                                                                                                             
+-----------                                                                                                             
+          3                                                                                                             
+
+SQL> select trunc(3.14,1) from dual;
+
+TRUNC(3.14,1)                                                                                                           
+-------------                                                                                                           
+          3.1                                                                                                           
+
+SQL> select trunc(54321.123456,1) from dual;
+
+TRUNC(54321.123456,1)                                                                                                   
+---------------------                                                                                                   
+              54321.1                                                                                                   
+
+SQL> select trunc(54321.123456,2) from dual;
+
+TRUNC(54321.123456,2)                                                                                                   
+---------------------                                                                                                   
+             54321.12                                                                                                   
+
+SQL> select trunc(54321.123456,3) from dual;
+
+TRUNC(54321.123456,3)                                                                                                   
+---------------------                                                                                                   
+            54321.123                                                                                                   
+
+SQL> select trunc(54321.123456,-1) from dual;
+
+TRUNC(54321.123456,-1)                                                                                                  
+----------------------                                                                                                  
+                 54320                                                                                                  
+
+SQL> select trunc(54321.123456,-2) from dual;
+
+TRUNC(54321.123456,-2)                                                                                                  
+----------------------                                                                                                  
+                 54300                                                                                                  
+
+SQL> select trunc(54321.123456,-3) from dual;
+
+TRUNC(54321.123456,-3)                                                                                                  
+----------------------                                                                                                  
+                 54000                                                                                                  
+
+SQL> select 4/2 from dual;
+
+       4/2                                                                                                              
+----------                                                                                                              
+         2                                                                                                              
+
+SQL> select 5/2 from dual;
+
+       5/2                                                                                                              
+----------                                                                                                              
+       2.5                                                                                                              
+
+SQL> select floor(5/2) from dual;
+
+FLOOR(5/2)                                                                                                              
+----------                                                                                                              
+         2                                                                                                              
+
+SQL> select 5/2,floor(5/2) from dual;
+
+       5/2 FLOOR(5/2)                                                                                                   
+---------- ----------                                                                                                   
+       2.5          2                                                                                                   
+
+SQL> select 5/2,floor(5/2),mod(5,2) from dual;
+
+       5/2 FLOOR(5/2)   MOD(5,2)                                                                                        
+---------- ---------- ----------                                                                                        
+       2.5          2          1                                                                                        
+
+SQL> select 5/2,floor(5/2),mod(5,2),5-2*floor(5/2) from dual;
+
+       5/2 FLOOR(5/2)   MOD(5,2) 5-2*FLOOR(5/2)                                                                         
+---------- ---------- ---------- --------------                                                                         
+       2.5          2          1              1                                                                         
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                                                                 
+--------                                                                                                                
+20/06/23                                                                                                                
+
+SQL> select ename,hiredate from emp'
+  2  ;
+ERROR:
+ORA-01756: 단일 인용부를 지정해 주십시오 
+
+
+SQL> select ename,hiredate from emp;
+
+ENAME      HIREDATE                                                                                                     
+---------- --------                                                                                                     
+SMITH      80/12/17                                                                                                     
+ALLEN      81/02/20                                                                                                     
+WARD       81/02/22                                                                                                     
+JONES      81/04/02                                                                                                     
+MARTIN     81/09/28                                                                                                     
+BLAKE      81/05/01                                                                                                     
+CLARK      81/06/09                                                                                                     
+SCOTT      87/04/19                                                                                                     
+KING       81/11/17                                                                                                     
+TURNER     81/09/08                                                                                                     
+ADAMS      87/05/23                                                                                                     
+
+ENAME      HIREDATE                                                                                                     
+---------- --------                                                                                                     
+JAMES      81/12/03                                                                                                     
+FORD       81/12/03                                                                                                     
+MILLER     82/01/23                                                                                                     
+
+14 개의 행이 선택되었습니다.
+
+SQL> select ename,hiredate,months_between(sysdate,hiredate) from emp;
+
+ENAME      HIREDATE MONTHS_BETWEEN(SYSDATE,HIREDATE)                                                                    
+---------- -------- --------------------------------                                                                    
+SMITH      80/12/17                       474.210432                                                                    
+ALLEN      81/02/20                       472.113658                                                                    
+WARD       81/02/22                       472.049142                                                                    
+JONES      81/04/02                       470.694303                                                                    
+MARTIN     81/09/28                       464.855594                                                                    
+BLAKE      81/05/01                       469.726561                                                                    
+CLARK      81/06/09                       468.468497                                                                    
+SCOTT      87/04/19                       398.145916                                                                    
+KING       81/11/17                       463.210432                                                                    
+TURNER     81/09/08                       465.500755                                                                    
+ADAMS      87/05/23                              397                                                                    
+
+ENAME      HIREDATE MONTHS_BETWEEN(SYSDATE,HIREDATE)                                                                    
+---------- -------- --------------------------------                                                                    
+JAMES      81/12/03                       462.662045                                                                    
+FORD       81/12/03                       462.662045                                                                    
+MILLER     82/01/23                              461                                                                    
+
+14 개의 행이 선택되었습니다.
+
+SQL> select ename,hiredate,add_months(hiredate,12) from emp;
+
+ENAME      HIREDATE ADD_MONT                                                                                            
+---------- -------- --------                                                                                            
+SMITH      80/12/17 81/12/17                                                                                            
+ALLEN      81/02/20 82/02/20                                                                                            
+WARD       81/02/22 82/02/22                                                                                            
+JONES      81/04/02 82/04/02                                                                                            
+MARTIN     81/09/28 82/09/28                                                                                            
+BLAKE      81/05/01 82/05/01                                                                                            
+CLARK      81/06/09 82/06/09                                                                                            
+SCOTT      87/04/19 88/04/19                                                                                            
+KING       81/11/17 82/11/17                                                                                            
+TURNER     81/09/08 82/09/08                                                                                            
+ADAMS      87/05/23 88/05/23                                                                                            
+
+ENAME      HIREDATE ADD_MONT                                                                                            
+---------- -------- --------                                                                                            
+JAMES      81/12/03 82/12/03                                                                                            
+FORD       81/12/03 82/12/03                                                                                            
+MILLER     82/01/23 83/01/23                                                                                            
+
+14 개의 행이 선택되었습니다.
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                                                                 
+--------                                                                                                                
+20/06/23                                                                                                                
+
+SQL> select sysdate,sysdate+1 from dual;
+
+SYSDATE  SYSDATE+                                                                                                       
+-------- --------                                                                                                       
+20/06/23 20/06/24                                                                                                       
+
+SQL> select sysdate-1,sysdate,sysdate+1 from dual;
+
+SYSDATE- SYSDATE  SYSDATE+                                                                                              
+-------- -------- --------                                                                                              
+20/06/22 20/06/23 20/06/24                                                                                              
+
+SQL> select sysdate,next_day(sydate,'수요일') from dual;
+select sysdate,next_day(sydate,'수요일') from dual
+                        *
+1행에 오류:
+ORA-00904: "SYDATE": 부적합한 식별자 
+
+
+SQL> select sysdate,next_day(sysdate,'수요일') from dual;
+
+SYSDATE  NEXT_DAY                                                                                                       
+-------- --------                                                                                                       
+20/06/23 20/06/24                                                                                                       
+
+SQL> select sysdate,next_day(sysdate,'금요일') from dual;
+
+SYSDATE  NEXT_DAY                                                                                                       
+-------- --------                                                                                                       
+20/06/23 20/06/26                                                                                                       
+
+SQL> select sysdate,next_day(sysdate,'월요일') from dual;
+
+SYSDATE  NEXT_DAY                                                                                                       
+-------- --------                                                                                                       
+20/06/23 20/06/29                                                                                                       
+
+SQL> select sysdate,last_day(sysdate) from dual;
+
+SYSDATE  LAST_DAY                                                                                                       
+-------- --------                                                                                                       
+20/06/23 20/06/30                                                                                                       
+
+SQL> select round(sysdate) from dual;
+
+ROUND(SY                                                                                                                
+--------                                                                                                                
+20/06/24                                                                                                                
+
+SQL> select round(sysdate,'MONTH') from dual;
+
+ROUND(SY                                                                                                                
+--------                                                                                                                
+20/07/01                                                                                                                
+
+SQL> select round(sysdate,'DY') from dual;
+
+ROUND(SY                                                                                                                
+--------                                                                                                                
+20/06/21                                                                                                                
+
+SQL> select trunc(sysdate,'DY') from dual;
+
+TRUNC(SY                                                                                                                
+--------                                                                                                                
+20/06/21                                                                                                                
+
+SQL> select trunc(sysdate,'MM') from dual;
+
+TRUNC(SY                                                                                                                
+--------                                                                                                                
+20/06/01                                                                                                                
+
+SQL> select ename,sal,comm from emp;
+
+ENAME             SAL       COMM                                                                                        
+---------- ---------- ----------                                                                                        
+SMITH             800                                                                                                   
+ALLEN           1,600        300                                                                                        
+WARD            1,250        500                                                                                        
+JONES           2,975                                                                                                   
+MARTIN          1,250       1400                                                                                        
+BLAKE           2,850                                                                                                   
+CLARK           2,450                                                                                                   
+SCOTT           3,000                                                                                                   
+KING            5,000                                                                                                   
+TURNER          1,500          0                                                                                        
+ADAMS           1,100                                                                                                   
+
+ENAME             SAL       COMM                                                                                        
+---------- ---------- ----------                                                                                        
+JAMES             950                                                                                                   
+FORD            3,000                                                                                                   
+MILLER          1,300                                                                                                   
+
+14 개의 행이 선택되었습니다.
+
+SQL> select ename,sal,comm,sal+comm from emp;
+
+ENAME             SAL       COMM   SAL+COMM                                                                             
+---------- ---------- ---------- ----------                                                                             
+SMITH             800                                                                                                   
+ALLEN           1,600        300       1900                                                                             
+WARD            1,250        500       1750                                                                             
+JONES           2,975                                                                                                   
+MARTIN          1,250       1400       2650                                                                             
+BLAKE           2,850                                                                                                   
+CLARK           2,450                                                                                                   
+SCOTT           3,000                                                                                                   
+KING            5,000                                                                                                   
+TURNER          1,500          0       1500                                                                             
+ADAMS           1,100                                                                                                   
+
+ENAME             SAL       COMM   SAL+COMM                                                                             
+---------- ---------- ---------- ----------                                                                             
+JAMES             950                                                                                                   
+FORD            3,000                                                                                                   
+MILLER          1,300                                                                                                   
+
+14 개의 행이 선택되었습니다.
+
+SQL> select ename,sal,comm,sal+comm as 연봉 from emp;
+
+ENAME             SAL       COMM       연봉                                                                             
+---------- ---------- ---------- ----------                                                                             
+SMITH             800                                                                                                   
+ALLEN           1,600        300       1900                                                                             
+WARD            1,250        500       1750                                                                             
+JONES           2,975                                                                                                   
+MARTIN          1,250       1400       2650                                                                             
+BLAKE           2,850                                                                                                   
+CLARK           2,450                                                                                                   
+SCOTT           3,000                                                                                                   
+KING            5,000                                                                                                   
+TURNER          1,500          0       1500                                                                             
+ADAMS           1,100                                                                                                   
+
+ENAME             SAL       COMM       연봉                                                                             
+---------- ---------- ---------- ----------                                                                             
+JAMES             950                                                                                                   
+FORD            3,000                                                                                                   
+MILLER          1,300                                                                                                   
+
+14 개의 행이 선택되었습니다.
+
+SQL> select comm from dual;
+select comm from dual
+       *
+1행에 오류:
+ORA-00904: "COMM": 부적합한 식별자 
+
+
+SQL> select comm from emp;
+
+      COMM                                                                                                              
+----------                                                                                                              
+                                                                                                                        
+       300                                                                                                              
+       500                                                                                                              
+                                                                                                                        
+      1400                                                                                                              
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+         0                                                                                                              
+                                                                                                                        
+
+      COMM                                                                                                              
+----------                                                                                                              
+                                                                                                                        
+                                                                                                                        
+                                                                                                                        
+
+14 개의 행이 선택되었습니다.
+
+SQL> select nvl(comm,0) from emp;
+
+NVL(COMM,0)                                                                                                             
+-----------                                                                                                             
+          0                                                                                                             
+        300                                                                                                             
+        500                                                                                                             
+          0                                                                                                             
+       1400                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+
+NVL(COMM,0)                                                                                                             
+-----------                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+          0                                                                                                             
+
+14 개의 행이 선택되었습니다.
+
+SQL> select comm,nvl(comm,0) from emp;
+
+      COMM NVL(COMM,0)                                                                                                  
+---------- -----------                                                                                                  
+                     0                                                                                                  
+       300         300                                                                                                  
+       500         500                                                                                                  
+                     0                                                                                                  
+      1400        1400                                                                                                  
+                     0                                                                                                  
+                     0                                                                                                  
+                     0                                                                                                  
+                     0                                                                                                  
+         0           0                                                                                                  
+                     0                                                                                                  
+
+      COMM NVL(COMM,0)                                                                                                  
+---------- -----------                                                                                                  
+                     0                                                                                                  
+                     0                                                                                                  
+                     0                                                                                                  
+
+14 개의 행이 선택되었습니다.
+
+SQL> select ename,deptno from emp;
+
+ENAME          DEPTNO                                                                                                   
+---------- ----------                                                                                                   
+SMITH              20                                                                                                   
+ALLEN              30                                                                                                   
+WARD               30                                                                                                   
+JONES              20                                                                                                   
+MARTIN             30                                                                                                   
+BLAKE              30                                                                                                   
+CLARK              10                                                                                                   
+SCOTT              20                                                                                                   
+KING               10                                                                                                   
+TURNER             30                                                                                                   
+ADAMS              20                                                                                                   
+
+ENAME          DEPTNO                                                                                                   
+---------- ----------                                                                                                   
+JAMES              30                                                                                                   
+FORD               20                                                                                                   
+MILLER             10                                                                                                   
+
+14 개의 행이 선택되었습니다.
+
+SQL> select * from dept;
+
+    DEPTNO DNAME                        LOC                                                                             
+---------- ---------------------------- --------------------------                                                      
+        10 ACCOUNTING                   NEW YORK                                                                        
+        20 RESEARCH                     DALLAS                                                                          
+        30 SALES                        CHICAGO                                                                         
+        40 OPERATIONS                   BOSTON                                                                          
+        50 관리부                       서울                                                                            
+
+SQL> select ename, decode(deptno,10,'accounting',20,'research',30,'sales',40,'operations') from emp;
+
+ENAME      DECODE(DEPTNO,10,'AC                                                                                         
+---------- --------------------                                                                                         
+SMITH      research                                                                                                     
+ALLEN      sales                                                                                                        
+WARD       sales                                                                                                        
+JONES      research                                                                                                     
+MARTIN     sales                                                                                                        
+BLAKE      sales                                                                                                        
+CLARK      accounting                                                                                                   
+SCOTT      research                                                                                                     
+KING       accounting                                                                                                   
+TURNER     sales                                                                                                        
+ADAMS      research                                                                                                     
+
+ENAME      DECODE(DEPTNO,10,'AC                                                                                         
+---------- --------------------                                                                                         
+JAMES      sales                                                                                                        
+FORD       research                                                                                                     
+MILLER     accounting                                                                                                   
+
+14 개의 행이 선택되었습니다.
+
+SQL> save ex11
+file ex11.sql(이)가 생성되었습니다
+SQL> select ename,
+  2  case when deptno=10 then '영업',
+  3  case when deptno=20 then '총무',
+  4  case when deptno=30 then '회계',
+  5  case when deptno=40 then '인사'
+  6  end from emp;
+case when deptno=20 then '총무',
+*
+3행에 오류:
+ORA-00905: 누락된 키워드 
+
+
+SQL> save ex12
+file ex12.sql(이)가 생성되었습니다
+SQL> edit ex12.sql
+
+SQL> select ename,
+  2  case when deptno=10 then '영업'
+  3  when deptno=20 then '총무'
+  4  when deptno=30 then '회계'
+  5  when deptno=40 then '인사'
+  6  end from emp;
+
+ENAME      CASEWHENDEPT                                                                                                 
+---------- ------------                                                                                                 
+SMITH      총무                                                                                                         
+ALLEN      회계                                                                                                         
+WARD       회계                                                                                                         
+JONES      총무                                                                                                         
+MARTIN     회계                                                                                                         
+BLAKE      회계                                                                                                         
+CLARK      영업                                                                                                         
+SCOTT      총무                                                                                                         
+KING       영업                                                                                                         
+TURNER     회계                                                                                                         
+ADAMS      총무                                                                                                         
+
+ENAME      CASEWHENDEPT                                                                                                 
+---------- ------------                                                                                                 
+JAMES      회계                                                                                                         
+FORD       총무                                                                                                         
+MILLER     영업                                                                                                         
+
+14 개의 행이 선택되었습니다.
+
+SQL> spool off

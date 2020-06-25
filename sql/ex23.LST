@@ -1,0 +1,351 @@
+SQL> select * from ex21 cross join ex20;
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         1 영업                                 1111                            
+user1                                   1                                       
+                                                                                
+         2 회계                                 1111                            
+user1                                   1                                       
+                                                                                
+         3 생산                                 1111                            
+user1                                   1                                       
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         4 관리                                 1111                            
+user1                                   1                                       
+                                                                                
+         1 영업                                 2222                            
+user2                                   2                                       
+                                                                                
+         2 회계                                 2222                            
+user2                                   2                                       
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         3 생산                                 2222                            
+user2                                   2                                       
+                                                                                
+         4 관리                                 2222                            
+user2                                   2                                       
+                                                                                
+         1 영업                                 3333                            
+user3                                   3                                       
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         2 회계                                 3333                            
+user3                                   3                                       
+                                                                                
+         3 생산                                 3333                            
+user3                                   3                                       
+                                                                                
+         4 관리                                 3333                            
+user3                                   3                                       
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         1 영업                                 4444                            
+user4                                   1                                       
+                                                                                
+         2 회계                                 4444                            
+user4                                   1                                       
+                                                                                
+         3 생산                                 4444                            
+user4                                   1                                       
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         4 관리                                 4444                            
+user4                                   1                                       
+                                                                                
+
+16 개의 행이 선택되었습니다.
+
+SQL> select ex21.job,ex20.name,ex21.num,ex20.num from ex21 inner join ex20 on ex21.num=ex20.num;
+
+JOB                            NAME                                  NUM        
+------------------------------ ------------------------------ ----------        
+       NUM                                                                      
+----------                                                                      
+영업                           user1                                   1        
+         1                                                                      
+                                                                                
+회계                           user2                                   2        
+         2                                                                      
+                                                                                
+생산                           user3                                   3        
+         3                                                                      
+                                                                                
+
+JOB                            NAME                                  NUM        
+------------------------------ ------------------------------ ----------        
+       NUM                                                                      
+----------                                                                      
+영업                           user4                                   1        
+         1                                                                      
+                                                                                
+
+SQL> select ex21.job,ex20.name from ex21 inner join ex20 on ex21.num=ex20.num;
+
+JOB                            NAME                                             
+------------------------------ ------------------------------                   
+영업                           user1                                            
+회계                           user2                                            
+생산                           user3                                            
+영업                           user4                                            
+
+SQL> select A.job,B.name from ex21 A inner join ex20 B on A.num=B.num;
+
+JOB                            NAME                                             
+------------------------------ ------------------------------                   
+영업                           user1                                            
+회계                           user2                                            
+생산                           user3                                            
+영업                           user4                                            
+
+SQL> select A.job,B.name from ex21 A inner join ex20 B using num;
+select A.job,B.name from ex21 A inner join ex20 B using num
+                                                        *
+1행에 오류:
+ORA-00906: 누락된 좌괄호 
+
+
+SQL> select A.job,B.name from ex21 A inner join ex20 B using (num);
+
+JOB                            NAME                                             
+------------------------------ ------------------------------                   
+영업                           user1                                            
+회계                           user2                                            
+생산                           user3                                            
+영업                           user4                                            
+
+SQL> select name,job from ex21 natural join ex20;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          영업                                             
+user2                          회계                                             
+user3                          생산                                             
+user4                          영업                                             
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 영업                                                                 
+         2 회계                                                                 
+         3 생산                                                                 
+         4 관리                                                                 
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 user4                                   1                            
+
+SQL> insert into ex20 values (5555,'new1',5);
+insert into ex20 values (5555,'new1',5)
+*
+1행에 오류:
+ORA-02291: 무결성 제약조건(SCOTT.SYS_C004030)이 위배되었습니다- 부모 키가
+없습니다 
+
+
+SQL> alter table ex20 drop SYS_C004030;
+alter table ex20 drop SYS_C004030
+                      *
+1행에 오류:
+ORA-00905: 누락된 키워드 
+
+
+SQL> alter table ex20 drop constraint SYS_C004030;
+
+테이블이 변경되었습니다.
+
+SQL> insert into ex20 values (5555,'new1',5);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 영업                                                                 
+         2 회계                                                                 
+         3 생산                                                                 
+         4 관리                                                                 
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 user4                                   1                            
+      5555 new1                                    5                            
+
+SQL> select * from ex21 left outter join ex20;
+select * from ex21 left outter join ex20
+                        *
+1행에 오류:
+ORA-00933: SQL 명령어가 올바르게 종료되지 않았습니다 
+
+
+SQL> select * from ex21 left outter join ex20 using (num);
+select * from ex21 left outter join ex20 using (num)
+                        *
+1행에 오류:
+ORA-00933: SQL 명령어가 올바르게 종료되지 않았습니다 
+
+
+SQL> select * from ex21 left outer join ex20 using (num);
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                                                            
+------------------------------                                                  
+         1 영업                                 1111                            
+user1                                                                           
+                                                                                
+         2 회계                                 2222                            
+user2                                                                           
+                                                                                
+         3 생산                                 3333                            
+user3                                                                           
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                                                            
+------------------------------                                                  
+         1 영업                                 4444                            
+user4                                                                           
+                                                                                
+         4 관리                                                                 
+                                                                                
+                                                                                
+
+SQL> select name,job from ex21 left outer join ex20 using (num);
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          영업                                             
+user2                          회계                                             
+user3                          생산                                             
+user4                          영업                                             
+                               관리                                             
+
+SQL> select name,job from ex21 right outer join ex20 using (num);
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user4                          영업                                             
+user1                          영업                                             
+user2                          회계                                             
+user3                          생산                                             
+new1                                                                            
+
+SQL> select name,job from ex21 full outer join ex20 using (num);
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          영업                                             
+user2                          회계                                             
+user3                          생산                                             
+user4                          영업                                             
+                               관리                                             
+new1                                                                            
+
+6 개의 행이 선택되었습니다.
+
+SQL> select name,job from ex21 full outer join ex20 using (num) where ex21.num != ex20.num;
+select name,job from ex21 full outer join ex20 using (num) where ex21.num != ex20.num
+                                                                             *
+1행에 오류:
+ORA-25154: USING 절의 열 부분은 식별자를 가질 수 없음 
+
+
+SQL> select name,job from ex21 full outer join ex20 on ex21.num=ex20.num where ex21.num != ex20.num;
+
+선택된 레코드가 없습니다.
+
+SQL> select name,job from ex21 left outer join ex20 on ex21.num=ex20.num where ex21.num != ex20.num;
+
+선택된 레코드가 없습니다.
+
+SQL> select name,job from ex21 left outer join ex20 on ex21.num=ex20.num ;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          영업                                             
+user2                          회계                                             
+user3                          생산                                             
+user4                          영업                                             
+                               관리                                             
+
+SQL> select name,job from ex21 left outer join ex20 on ex21.num=ex20.num  where name is null;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+                               관리                                             
+
+SQL> select name,job from ex21 right outer join ex20 on ex21.num=ex20.num  where job is null;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+new1                                                                            
+
+SQL> select name,job from ex21 full outer join ex20 on ex21.num=ex20.num  where job is null or name is null;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+                               관리                                             
+new1                                                                            
+
+SQL> select a.ename,b.ename from emp a inner join emp b on a.mgr=b.empno;
+
+ENAME                ENAME                                                      
+-------------------- --------------------                                       
+SMITH                FORD                                                       
+ALLEN                BLAKE                                                      
+WARD                 BLAKE                                                      
+JONES                KING                                                       
+MARTIN               BLAKE                                                      
+BLAKE                KING                                                       
+CLARK                KING                                                       
+SCOTT                JONES                                                      
+TURNER               BLAKE                                                      
+ADAMS                SCOTT                                                      
+JAMES                BLAKE                                                      
+
+ENAME                ENAME                                                      
+-------------------- --------------------                                       
+FORD                 JONES                                                      
+MILLER               CLARK                                                      
+
+13 개의 행이 선택되었습니다.
+
+SQL> spool off

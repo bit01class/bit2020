@@ -1,0 +1,404 @@
+SQL> select sal from emp;
+
+       SAL                                                                      
+----------                                                                      
+       800                                                                      
+      1600                                                                      
+      1250                                                                      
+      2975                                                                      
+      1250                                                                      
+      2850                                                                      
+      2450                                                                      
+      3000                                                                      
+      5000                                                                      
+      1500                                                                      
+      1100                                                                      
+
+       SAL                                                                      
+----------                                                                      
+       950                                                                      
+      3000                                                                      
+      1300                                                                      
+
+14 개의 행이 선택되었습니다.
+
+SQL> select sum(sal) from emp;
+
+  SUM(SAL)                                                                      
+----------                                                                      
+     29025                                                                      
+
+SQL> select avg(sal) from emp;
+
+  AVG(SAL)                                                                      
+----------                                                                      
+2073.21429                                                                      
+
+SQL> select sal,avg(sal) from emp;
+select sal,avg(sal) from emp
+       *
+1행에 오류:
+ORA-00937: 단일 그룹의 그룹 함수가 아닙니다 
+
+
+SQL> select avg(sal) from emp where sal<2073;
+
+  AVG(SAL)                                                                      
+----------                                                                      
+   1218.75                                                                      
+
+SQL> select avg(sal) from emp where sal<avg(sal);
+select avg(sal) from emp where sal<avg(sal)
+                                   *
+1행에 오류:
+ORA-00934: 그룹 함수는 허가되지 않습니다 
+
+
+SQL> select avg(sal) from emp where deptno=10;
+
+  AVG(SAL)                                                                      
+----------                                                                      
+2916.66667                                                                      
+
+SQL> select avg(sal) from emp where deptno=20;
+
+  AVG(SAL)                                                                      
+----------                                                                      
+      2175                                                                      
+
+SQL> select avg(sal) from emp where deptno=30;
+
+  AVG(SAL)                                                                      
+----------                                                                      
+1566.66667                                                                      
+
+SQL> select avg(sal) from emp group by deptno;
+
+  AVG(SAL)                                                                      
+----------                                                                      
+1566.66667                                                                      
+      2175                                                                      
+2916.66667                                                                      
+
+SQL> select deptno,avg(sal) from emp group by deptno;
+
+    DEPTNO   AVG(SAL)                                                           
+---------- ----------                                                           
+        30 1566.66667                                                           
+        20       2175                                                           
+        10 2916.66667                                                           
+
+SQL> select deptno,avg(sal) from emp where sal<2073 group by deptno;
+
+    DEPTNO   AVG(SAL)                                                           
+---------- ----------                                                           
+        30       1310                                                           
+        20        950                                                           
+        10       1300                                                           
+
+SQL> select sum(sal), avg(sal) from emp;
+
+  SUM(SAL)   AVG(SAL)                                                           
+---------- ----------                                                           
+     29025 2073.21429                                                           
+
+SQL> select deptno avg(sal) from emp group by deptno having avg(sal)<2073;
+select deptno avg(sal) from emp group by deptno having avg(sal)<2073
+                 *
+1행에 오류:
+ORA-00923: FROM 키워드가 필요한 위치에 없습니다. 
+
+
+SQL> select deptno, avg(sal) from emp group by deptno having avg(sal)<2073;
+
+    DEPTNO   AVG(SAL)                                                           
+---------- ----------                                                           
+        30 1566.66667                                                           
+
+SQL> select deptno, avg(sal) from emp group by deptno having avg(sal)>1000;
+
+    DEPTNO   AVG(SAL)                                                           
+---------- ----------                                                           
+        30 1566.66667                                                           
+        20       2175                                                           
+        10 2916.66667                                                           
+
+SQL> select deptno, avg(sal) from emp group by deptno having avg(sal)>2000;
+
+    DEPTNO   AVG(SAL)                                                           
+---------- ----------                                                           
+        20       2175                                                           
+        10 2916.66667                                                           
+
+SQL> desc ex13;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ SABUN                                              NUMBER(4)
+ NAME                                               VARCHAR2(15)
+ NALJA                                              DATE
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA                                 
+---------- ------------------------------ --------                              
+      1111 test1                          20/01/01                              
+
+SQL> delete from ex13;
+
+1 행이 삭제되었습니다.
+
+SQL> select * from ex13;
+
+선택된 레코드가 없습니다.
+
+SQL> alter table ex13 add(pay number);
+
+테이블이 변경되었습니다.
+
+SQL> desc ex13;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ SABUN                                              NUMBER(4)
+ NAME                                               VARCHAR2(15)
+ NALJA                                              DATE
+ PAY                                                NUMBER
+
+SQL> alter table ex13 modify(pay number(4));
+
+테이블이 변경되었습니다.
+
+SQL> desc ex13;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ SABUN                                              NUMBER(4)
+ NAME                                               VARCHAR2(15)
+ NALJA                                              DATE
+ PAY                                                NUMBER(4)
+
+SQL> alter table ex13 drop pay;
+alter table ex13 drop pay
+                      *
+1행에 오류:
+ORA-00905: 누락된 키워드 
+
+
+SQL> alter table ex13 drop (pay);
+
+테이블이 변경되었습니다.
+
+SQL> desc ex13;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ SABUN                                              NUMBER(4)
+ NAME                                               VARCHAR2(15)
+ NALJA                                              DATE
+
+SQL> insert into ex13 values (1111,'test1',sysdate);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select from ex13;
+select from ex13
+       *
+1행에 오류:
+ORA-00936: 누락된 표현식 
+
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA                                 
+---------- ------------------------------ --------                              
+      1111 test1                          20/06/24                              
+
+SQL> alter table ex13 add (pay number(4));
+
+테이블이 변경되었습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA           PAY                   
+---------- ------------------------------ -------- ----------                   
+      1111 test1                          20/06/24                              
+
+SQL> insert into ex13 values (2222,'test2',sysdate,2000);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA           PAY                   
+---------- ------------------------------ -------- ----------                   
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24       2000                   
+
+SQL> alter table ex13 modify (pay number);
+
+테이블이 변경되었습니다.
+
+SQL> desc ex13;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ SABUN                                              NUMBER(4)
+ NAME                                               VARCHAR2(15)
+ NALJA                                              DATE
+ PAY                                                NUMBER
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA           PAY                   
+---------- ------------------------------ -------- ----------                   
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24       2000                   
+
+SQL> alter table ex13 modify (pay number(3));
+alter table ex13 modify (pay number(3))
+                         *
+1행에 오류:
+ORA-01440: 정도 또는 자리수를 축소할 열은 비어 있어야 합니다 
+
+
+SQL> alter table ex13 modify (pay number(4));
+alter table ex13 modify (pay number(4))
+                         *
+1행에 오류:
+ORA-01440: 정도 또는 자리수를 축소할 열은 비어 있어야 합니다 
+
+
+SQL> update ex13 set pay=null;
+
+2 행이 갱신되었습니다.
+
+SQL> alter table ex13 modify (pay number(4));
+
+테이블이 변경되었습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA           PAY                   
+---------- ------------------------------ -------- ----------                   
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24                              
+
+SQL> insert into ex13 values (3333,'test3',sysdate,0);
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA           PAY                   
+---------- ------------------------------ -------- ----------                   
+      3333 test3                          20/06/24          0                   
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24                              
+
+SQL> alter table ex13 drop (pay);
+
+테이블이 변경되었습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA                                 
+---------- ------------------------------ --------                              
+      3333 test3                          20/06/24                              
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24                              
+
+SQL> alter table ex13 add(pay number);
+
+테이블이 변경되었습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA           PAY                   
+---------- ------------------------------ -------- ----------                   
+      3333 test3                          20/06/24                              
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24                              
+
+SQL> alter table ex13 drop column pay;
+
+테이블이 변경되었습니다.
+
+SQL> select * from ex13;
+
+     SABUN NAME                           NALJA                                 
+---------- ------------------------------ --------                              
+      3333 test3                          20/06/24                              
+      1111 test1                          20/06/24                              
+      2222 test2                          20/06/24                              
+
+SQL> alter table ex13 add column (pay number);
+alter table ex13 add column (pay number)
+                     *
+1행에 오류:
+ORA-00904: : 부적합한 식별자 
+
+
+SQL> alter table ex13 add(pay number);
+
+테이블이 변경되었습니다.
+
+SQL> alter table ex13 modify column(pay number);
+alter table ex13 modify column(pay number)
+                                   *
+1행에 오류:
+ORA-00907: 누락된 우괄호 
+
+
+SQL> alter table ex13 modify column pay number;
+alter table ex13 modify column pay number
+                                   *
+1행에 오류:
+ORA-00905: 누락된 키워드 
+
+
+SQL> drop table ex13;
+
+테이블이 삭제되었습니다.
+
+SQL> desc ex13;
+ERROR:
+ORA-04043: ex13 객체는 존재하지 않습니다. 
+
+
+SQL> select * from ex13;
+select * from ex13
+              *
+1행에 오류:
+ORA-00942: 테이블 또는 뷰가 존재하지 않습니다 
+
+
+SQL> create table ex13(num number);
+
+테이블이 생성되었습니다.
+
+SQL> alter table ex13 add(name varchar2(10));
+
+테이블이 변경되었습니다.
+
+SQL> desc ex13;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ NUM                                                NUMBER
+ NAME                                               VARCHAR2(10)
+
+SQL> rename ex13 to ex14;
+
+테이블 이름이 변경되었습니다.
+
+SQL> desc ex13;
+ERROR:
+ORA-04043: ex13 객체는 존재하지 않습니다. 
+
+
+SQL> desc ex14;
+ 이름                                      널?      유형
+ ----------------------------------------- -------- ----------------------------
+ NUM                                                NUMBER
+ NAME                                               VARCHAR2(10)
+
+SQL> drop table ex14;
+
+테이블이 삭제되었습니다.
+
+SQL> spool off;

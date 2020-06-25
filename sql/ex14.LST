@@ -1,0 +1,350 @@
+SQL> select '20/01/01' from dual;
+
+'20/01/01'                                                                      
+----------------                                                                
+20/01/01                                                                        
+
+SQL> select sysdate from dual;
+
+SYSDATE                                                                         
+--------                                                                        
+20/06/24                                                                        
+
+SQL> select to_char(sysdate,'YYYY-MM-di') from dual;
+
+TO_CHAR(SYSDATE,'YYY                                                            
+--------------------                                                            
+2020-06-40                                                                      
+
+SQL> select to_char(sysdate,'YYYY-MM-DD') from dual;
+
+TO_CHAR(SYSDATE,'YYY                                                            
+--------------------                                                            
+2020-06-24                                                                      
+
+SQL> select to_char(sysdate,'YYYY-MM-DD hh:mi:ss') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-DDHH:MI:SS')                                           
+--------------------------------------                                          
+2020-06-24 10:53:10                                                             
+
+SQL> select to_char(sysdate,'YYYY년MM월DD일 hh시mi분ss초') from dual;
+select to_char(sysdate,'YYYY년MM월DD일 hh시mi분ss초') from dual
+                       *
+1행에 오류:
+ORA-01821: 날짜 형식이 부적합합니다 
+
+
+SQL> select to_char(sysdate,'YYYY년 MM월 DD일 hh시 mi분 ss초') from dual;
+select to_char(sysdate,'YYYY년 MM월 DD일 hh시 mi분 ss초') from dual
+                       *
+1행에 오류:
+ORA-01821: 날짜 형식이 부적합합니다 
+
+
+SQL> select to_char(sysdate,'YYYY년 MM월 DD일') from dual;
+select to_char(sysdate,'YYYY년 MM월 DD일') from dual
+                       *
+1행에 오류:
+ORA-01821: 날짜 형식이 부적합합니다 
+
+
+SQL> select to_char(sysdate,'YYYY-MM-DD hh mi') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-DDHHMI'                                                
+--------------------------------                                                
+2020-06-24 10 54                                                                
+
+SQL> select to_char(sysdate,'YYYY-MM-DD DAY') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-DDDAY')                                                
+----------------------------------------------                                  
+2020-06-24 수요일                                                               
+
+SQL> select to_char(sysdate,'YYYY-MM-DD DY') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-DDDY'                                                  
+------------------------------                                                  
+2020-06-24 수                                                                   
+
+SQL> select to_char(sysdate,'YYYY-MM-DD DY pm') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-DDDYPM')                                               
+--------------------------------------------                                    
+2020-06-24 수 오전                                                              
+
+SQL> select to_char(sysdate,'YYYY-MM-DD Di') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-D                                                      
+--------------------------                                                      
+2020-06-24 40                                                                   
+
+SQL> select to_char(sysdate,'YYYY-MM-DD Di') from dual;
+
+TO_CHAR(SYSDATE,'YYYY-MM-D                                                      
+--------------------------                                                      
+2020-06-24 40                                                                   
+
+SQL> select 12345 from dual;
+
+     12345                                                                      
+----------                                                                      
+     12345                                                                      
+
+SQL> select 12,345 from dual;
+
+        12        345                                                           
+---------- ----------                                                           
+        12        345                                                           
+
+SQL> select to_char(12345,'0,000,000') from dual;
+
+TO_CHAR(12345,'0,000                                                            
+--------------------                                                            
+ 0,012,345                                                                      
+
+SQL> select to_char(12345,'9,999,999') from dual;
+
+TO_CHAR(12345,'9,999                                                            
+--------------------                                                            
+    12,345                                                                      
+
+SQL> select to_char(12345,'0,000,000.00') from dual;
+
+TO_CHAR(12345,'0,000,000.0                                                      
+--------------------------                                                      
+ 0,012,345.00                                                                   
+
+SQL> select to_char(12345,'9,999,999.99') from dual;
+
+TO_CHAR(12345,'9,999,999.9                                                      
+--------------------------                                                      
+    12,345.00                                                                   
+
+SQL> select to_char(12345,'L9,999,999.99') from dual;
+
+TO_CHAR(12345,'L9,999,999.99')                                                  
+----------------------------------------------                                  
+           ￦12,345.00                                                          
+
+SQL> select to_char(12345,'$9,999,999.99') from dual;
+
+TO_CHAR(12345,'$9,999,999.99                                                    
+----------------------------                                                    
+    $12,345.00                                                                  
+
+SQL> select to_char(12345,'L9,999,999.99') from dual;
+
+TO_CHAR(12345,'L9,999,999.99')                                                  
+----------------------------------------------                                  
+           ￦12,345.00                                                          
+
+SQL> select to_char(12345,'$9,999,999.99') from dual;
+
+TO_CHAR(12345,'$9,999,999.99                                                    
+----------------------------                                                    
+    $12,345.00                                                                  
+
+SQL> select to_char(12345,'9,999,999.99원') from dual;
+select to_char(12345,'9,999,999.99원') from dual
+                     *
+1행에 오류:
+ORA-01481: 숫자 형식 모델이 부적합합니다 
+
+
+SQL> select to_char(12345,'$9,999,999.99') from dual;
+
+TO_CHAR(12345,'$9,999,999.99                                                    
+----------------------------                                                    
+    $12,345.00                                                                  
+
+SQL> select 3.14 from dual;
+
+      3.14                                                                      
+----------                                                                      
+      3.14                                                                      
+
+SQL> select +3.14 from dual;
+
+     +3.14                                                                      
+----------                                                                      
+      3.14                                                                      
+
+SQL> select -3.14 from dual;
+
+     -3.14                                                                      
+----------                                                                      
+     -3.14                                                                      
+
+SQL> select '1234'+1 from dual;
+
+  '1234'+1                                                                      
+----------                                                                      
+      1235                                                                      
+
+SQL> select '1234'+'1' from dual;
+
+'1234'+'1'                                                                      
+----------                                                                      
+      1235                                                                      
+
+SQL> select '1234'||'1' from dual;
+
+'1234'||'1                                                                      
+----------                                                                      
+12341                                                                           
+
+SQL> select to_number('1234') from dual;
+
+TO_NUMBER('1234')                                                               
+-----------------                                                               
+             1234                                                               
+
+SQL> select to_number('1234')+1 from dual;
+
+TO_NUMBER('1234')+1                                                             
+-------------------                                                             
+               1235                                                             
+
+SQL> select to_number('1234')+to_number('1') from dual;
+
+TO_NUMBER('1234')+TO_NUMBER('1')                                                
+--------------------------------                                                
+                            1235                                                
+
+SQL> select '12,345'+1 from dual;
+select '12,345'+1 from dual
+       *
+1행에 오류:
+ORA-01722: 수치가 부적합합니다 
+
+
+SQL> select to_number('12,345') from dual;
+select to_number('12,345') from dual
+                 *
+1행에 오류:
+ORA-01722: 수치가 부적합합니다 
+
+
+SQL> select to_number('12,345','99,999') from dual;
+
+TO_NUMBER('12,345','99,999')                                                    
+----------------------------                                                    
+                       12345                                                    
+
+SQL> select to_number('12,345','9,999,999') from dual;
+
+TO_NUMBER('12,345','9,999,999')                                                 
+-------------------------------                                                 
+                          12345                                                 
+
+SQL> select to_number('12,345','9,999,999')+1 from dual;
+
+TO_NUMBER('12,345','9,999,999')+1                                               
+---------------------------------                                               
+                            12346                                               
+
+SQL> select '20-01-01'+1 from daul;
+select '20-01-01'+1 from daul
+                         *
+1행에 오류:
+ORA-00942: 테이블 또는 뷰가 존재하지 않습니다 
+
+
+SQL> select '20/01/01'+1 from daul;
+select '20/01/01'+1 from daul
+                         *
+1행에 오류:
+ORA-00942: 테이블 또는 뷰가 존재하지 않습니다 
+
+
+SQL> select to_date('20/01/01')+1 from daul;
+select to_date('20/01/01')+1 from daul
+                                  *
+1행에 오류:
+ORA-00942: 테이블 또는 뷰가 존재하지 않습니다 
+
+
+SQL> select to_date('20/01/01')+1 from dual;
+
+TO_DATE(                                                                        
+--------                                                                        
+20/01/02                                                                        
+
+SQL> select to_date('20-01-01')+1 from dual;
+
+TO_DATE(                                                                        
+--------                                                                        
+20/01/02                                                                        
+
+SQL> select to_date('20 01 01')+1 from dual;
+
+TO_DATE(                                                                        
+--------                                                                        
+20/01/02                                                                        
+
+SQL> select to_date('20 01 01 12 00')+1 from dual;
+select to_date('20 01 01 12 00')+1 from dual
+               *
+1행에 오류:
+ORA-01830: 날짜 형식의 지정에 불필요한 데이터가 포함되어 있습니다 
+
+
+SQL> select to_date('20 01 01 12 00','YY MM DD HH MI')+1 from dual;
+
+TO_DATE(                                                                        
+--------                                                                        
+20/01/02                                                                        
+
+SQL> select * from ex13;
+
+선택된 레코드가 없습니다.
+
+SQL> insert into ex13 values (1111,'test1','20/01/01');
+
+1 개의 행이 만들어졌습니다.
+
+SQL> select nalja from ex13;
+
+NALJA                                                                           
+--------                                                                        
+20/01/01                                                                        
+
+SQL> select to_char(nalja,'YY/MM/DD HH:MI') from ex13;
+
+TO_CHAR(NALJA,'YY/MM/DDHH:MI                                                    
+----------------------------                                                    
+20/01/01 12:00                                                                  
+
+SQL> select to_char(nalja,'YY/MM/DD am HH:MI') from ex13;
+
+TO_CHAR(NALJA,'YY/MM/DDAMHH:MI')                                                
+------------------------------------------                                      
+20/01/01 오전 12:00                                                             
+
+SQL> select to_char(nalja,'YY/MM/DD am HH:MI:SS') from ex13;
+
+TO_CHAR(NALJA,'YY/MM/DDAMHH:MI:SS')                                             
+------------------------------------------------                                
+20/01/01 오전 12:00:00                                                          
+
+SQL> select sysdate-nalja from dual;
+select sysdate-nalja from dual
+               *
+1행에 오류:
+ORA-00904: "NALJA": 부적합한 식별자 
+
+
+SQL> select sysdate-nalja from ex13;
+
+SYSDATE-NALJA                                                                   
+-------------                                                                   
+   175.472141                                                                   
+
+SQL> select to_date('20/06/24')-nalja from ex13;
+
+TO_DATE('20/06/24')-NALJA                                                       
+-------------------------                                                       
+                      175                                                       
+
+SQL> spool off

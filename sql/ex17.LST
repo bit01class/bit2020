@@ -1,0 +1,1744 @@
+SQL> create table ex17(num number,name varchar2(15));
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex17 (name) values ('no1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 (name) values ('no2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+           no1                                                                  
+           no2                                                                  
+
+SQL> insert into ex17 (name) values ('no1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+           no1                                                                  
+           no2                                                                  
+           no1                                                                  
+
+SQL> select * from ex17 where name='no2';
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+           no2                                                                  
+
+SQL> select * from ex17 where name='no1';
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+           no1                                                                  
+           no1                                                                  
+
+SQL> select * from ex17 where num is null;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+           no1                                                                  
+           no2                                                                  
+           no1                                                                  
+
+SQL> drop table ex17;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> create table ex17(num number, name varchar2(15) not null);
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'no1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'no2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'');
+insert into ex17 values (1,'')
+                           *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX17"."NAME") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 no1                                                                  
+         1 no2                                                                  
+
+SQL> insert into ex17 (num) values (3);
+insert into ex17 (num) values (3)
+*
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX17"."NAME") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> desc dept;
+ ÀÌ¸§                                      ³Î?      À¯Çü
+ ----------------------------------------- -------- ----------------------------
+ DEPTNO                                    NOT NULL NUMBER(2)
+ DNAME                                              VARCHAR2(14)
+ LOC                                                VARCHAR2(13)
+
+SQL> insert into dept (dname,loc) from ('test','test');
+insert into dept (dname,loc) from ('test','test')
+                             *
+1Çà¿¡ ¿À·ù:
+ORA-00926: ´©¶ôµÈ VALUES Å°¿öµå 
+
+
+SQL> insert into dept (dname,loc) values ('test','test');
+insert into dept (dname,loc) values ('test','test')
+*
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."DEPT"."DEPTNO") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> drop table ex17;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> create table ex17(num number unique , name varchar2(15) not null);
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'test3');
+insert into ex17 values (1,'test3')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C003999)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+
+SQL> insert into ex17 values (null,'test3');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+           test3                                                                
+
+SQL> insert into ex17 values (null,'test4');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+           test3                                                                
+           test4                                                                
+
+SQL> drop table ex17;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> create table ex16 (num number unique not null, name varchar2(15) not null);
+create table ex16 (num number unique not null, name varchar2(15) not null)
+             *
+1Çà¿¡ ¿À·ù:
+ORA-00955: ±âÁ¸ÀÇ °´Ã¼°¡ ÀÌ¸§À» »ç¿ëÇÏ°í ÀÖ½À´Ï´Ù. 
+
+
+SQL> desc ex16;
+ ÀÌ¸§                                      ³Î?      À¯Çü
+ ----------------------------------------- -------- ----------------------------
+ NUM                                                NUMBER
+ SUB                                                VARCHAR2(15)
+
+SQL> create table ex17 (num number unique not null, name varchar2(15) not null);
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values 92,'test2');
+insert into ex17 values 92,'test2')
+                          *
+1Çà¿¡ ¿À·ù:
+ORA-00933: SQL ¸í·É¾î°¡ ¿Ã¹Ù¸£°Ô Á¾·áµÇÁö ¾Ê¾Ò½À´Ï´Ù 
+
+
+SQL> insert into ex17 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (3,'test3');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (null,'test4');
+insert into ex17 values (null,'test4')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX17"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex17 values (1,'test4');
+insert into ex17 values (1,'test4')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C004002)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> select * from ex17;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+         3 test3                                                                
+
+SQL> ed ex17.sql
+
+SQL> create table ex17(
+  2  num number,
+  3  
+SQL> create
+  2  
+SQL> 
+SQL> create
+  2  --
+  3  table
+  4  --
+  5  --
+  6  
+SQL> ed ex17.sql
+
+SQL> @ex17.sql
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex17 values (1,'test3');
+insert into ex17 values (1,'test3')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C004004)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> insert into ex17 values (null,'test3');
+insert into ex17 values (null,'test3')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX17"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> desc ex17;
+ ÀÌ¸§                                      ³Î?      À¯Çü
+ ----------------------------------------- -------- ----------------------------
+ NUM                                       NOT NULL NUMBER
+ NAME                                      NOT NULL VARCHAR2(15)
+
+SQL> ed ex17.sql
+
+SQL> ed ex18.sql
+
+SQL> @ex18.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex18 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex18 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex18 values (1,'test3');
+insert into ex18 values (1,'test3')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C004005)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> insert into ex18 values (null,'test3');
+insert into ex18 values (null,'test3')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX18"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> ed ex18.sql
+
+SQL> alter table ex18 modify (name varchar2(15) not null);
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex18 values (3,null);
+insert into ex18 values (3,null)
+                           *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX18"."NAME") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex18 values (3,'test3');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex18;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+         3 test3                                                                
+
+SQL> ed ex18.sql
+
+SQL> @ ex18.sql
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex18 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex18 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex18 values (null,'test2');
+insert into ex18 values (null,'test2')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX18"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex18 values (1,'test2');
+insert into ex18 values (1,'test2')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C004008)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> ed ex18.sql
+
+SQL> ed ex17.sql
+
+SQL> ed ex18.sql
+
+SQL> @ex18.sql
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex18 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex18 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex18 values (1,'test2');
+insert into ex18 values (1,'test2')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C004010)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> insert into ex18 values (null,'test2');
+insert into ex18 values (null,'test2')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX18"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> ed ex18.sql
+
+SQL> ed ex19.sql
+
+SQL> @ex19.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex19 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex19 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex19 values (null,'test3');
+insert into ex19 values (null,'test3')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX19"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex19 values (1,'test3);
+ERROR:
+ORA-01756: ´ÜÀÏ ÀÎ¿ëºÎ¸¦ ÁöÁ¤ÇØ ÁÖ½Ê½Ã¿À 
+
+
+SQL> insert into ex19 values (1,'test3');
+insert into ex19 values (1,'test3')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.EX19_NUM_PK)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> alter table ex19 drop constraint ex19_num_pk;
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex19 values (1,'test3');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex19;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+         1 test3                                                                
+
+SQL> drop table ex19;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> ed ex19.sql
+
+SQL> @ex19.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex19 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex19 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex19 values (null,'test2');
+insert into ex19 values (null,'test2')
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-01400: NULLÀ» ("SCOTT"."EX19"."NUM") ¾È¿¡ »ðÀÔÇÒ ¼ö ¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex19 values (1,'test2');
+insert into ex19 values (1,'test2')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.EX19_NUM_PK)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> alter table ex19 drop constraint ex19_num_pk;
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex19 values 91,'test3');
+insert into ex19 values 91,'test3')
+                          *
+1Çà¿¡ ¿À·ù:
+ORA-00933: SQL ¸í·É¾î°¡ ¿Ã¹Ù¸£°Ô Á¾·áµÇÁö ¾Ê¾Ò½À´Ï´Ù 
+
+
+SQL> insert into ex19 values (1,'test3');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex19;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+         1 test3                                                                
+
+SQL> alter table ex19 add constraint ex19_num_pk primary key(num);
+alter table ex19 add constraint ex19_num_pk primary key(num)
+                                *
+1Çà¿¡ ¿À·ù:
+ORA-02437: (SCOTT.EX19_NUM_PK)À» °ËÁõÇÒ ¼ö ¾ø½À´Ï´Ù - Àß¸øµÈ ±âº» Å°ÀÔ´Ï´Ù 
+
+
+SQL> delete from ex19;
+
+3 ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> alter table ex19 add constraint ex19_num_pk primary key(num);
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex19 values (1,'test1');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex19 values (2,'test2');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex19 values (1,'test3');
+insert into ex19 values (1,'test3')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.EX19_NUM_PK)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> select * from ex18;
+
+       NUM NAME                                                                 
+---------- ------------------------------                                       
+         1 test1                                                                
+         2 test2                                                                
+
+SQL> desc ex18;
+ ÀÌ¸§                                      ³Î?      À¯Çü
+ ----------------------------------------- -------- ----------------------------
+ NUM                                       NOT NULL NUMBER
+ NAME                                      NOT NULL VARCHAR2(15)
+
+SQL> insert into ex18 values (1,'test3');
+insert into ex18 values (1,'test3')
+*
+1Çà¿¡ ¿À·ù:
+ORA-00001: ¹«°á¼º Á¦¾à Á¶°Ç(SCOTT.SYS_C004010)¿¡ À§¹èµË´Ï´Ù 
+
+
+SQL> alter table ex18 drop constraint SYS_C004010;
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex18 values (1,'test3');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> ed ex20.sql
+
+SQL> @ ex20.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex21 values (1,'¿µ¾÷');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex21 values (2,'È¸°è');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex21 values (3,'»ý»ê');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 ¿µ¾÷                                                                 
+         2 È¸°è                                                                 
+         3 »ý»ê                                                                 
+
+SQL> insert into ex20 values (1111,'user1',1);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (2222,'user2',2);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (3333,'user3',3);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (4444,'new1',1);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 new1                                    1                            
+
+SQL> select sabun,name,decode(num,1,'¿µ¾÷',2,'È¸°è',3,'»ý»ê') from ex20;
+
+     SABUN NAME                           DECODE(NUM,1                          
+---------- ------------------------------ ------------                          
+      1111 user1                          ¿µ¾÷                                  
+      2222 user2                          È¸°è                                  
+      3333 user3                          »ý»ê                                  
+      4444 new1                           ¿µ¾÷                                  
+
+SQL> insert into ex20 values (5555,'new2',4);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> ed ex20.sql
+
+SQL> drop table ex20;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> drop table ex21;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> @ex20.sql
+	num number references ex21(num)
+	                      *
+4Çà¿¡ ¿À·ù:
+ORA-00942: Å×ÀÌºí ¶Ç´Â ºä°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù 
+
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> drop table ex21;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> ed ex20.sql
+
+SQL> @ex20.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> drop table ex21;
+drop table ex21
+           *
+1Çà¿¡ ¿À·ù:
+ORA-02449: ¿Ü·¡ Å°¿¡ ÀÇÇØ ÂüÁ¶µÇ´Â °íÀ¯/±âº» Å°°¡ Å×ÀÌºí¿¡ ÀÖ½À´Ï´Ù 
+
+
+SQL> drop table ex20;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> drop table ex21;
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> @ex20.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex20 values (1111,'test',1);
+insert into ex20 values (1111,'test',1)
+*
+1Çà¿¡ ¿À·ù:
+ORA-02291: ¹«°á¼º Á¦¾àÁ¶°Ç(SCOTT.SYS_C004030)ÀÌ À§¹èµÇ¾ú½À´Ï´Ù- ºÎ¸ð Å°°¡
+¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex21 values (1,'¿µ¾÷');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex21 values (2,'È¸°è');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex21 values (3,'»ý»ê');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (1111,'user1',1);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (2222,'user2',2);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (3333,'user3',3);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (4444,'user4',1);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (5555,'user5',5);
+insert into ex20 values (5555,'user5',5)
+*
+1Çà¿¡ ¿À·ù:
+ORA-02291: ¹«°á¼º Á¦¾àÁ¶°Ç(SCOTT.SYS_C004030)ÀÌ À§¹èµÇ¾ú½À´Ï´Ù- ºÎ¸ð Å°°¡
+¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex21 values (4,'ÃÑ¹«');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex20 values (5555,'new1',4);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 ¿µ¾÷                                                                 
+         2 È¸°è                                                                 
+         3 »ý»ê                                                                 
+         4 ÃÑ¹«                                                                 
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 user4                                   1                            
+      5555 new1                                    4                            
+
+SQL> ed ex20.sql
+
+SQL> desc ex20;
+ ÀÌ¸§                                      ³Î?      À¯Çü
+ ----------------------------------------- -------- ----------------------------
+ SABUN                                     NOT NULL NUMBER
+ NAME                                      NOT NULL VARCHAR2(15)
+ NUM                                                NUMBER
+
+SQL> desc ex21;
+ ÀÌ¸§                                      ³Î?      À¯Çü
+ ----------------------------------------- -------- ----------------------------
+ NUM                                       NOT NULL NUMBER
+ JOB                                       NOT NULL VARCHAR2(15)
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 ¿µ¾÷                                                                 
+         2 È¸°è                                                                 
+         3 »ý»ê                                                                 
+         4 ÃÑ¹«                                                                 
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 user4                                   1                            
+      5555 new1                                    4                            
+
+SQL> insert into ex20 values (6666,'new2',5);
+insert into ex20 values (6666,'new2',5)
+*
+1Çà¿¡ ¿À·ù:
+ORA-02291: ¹«°á¼º Á¦¾àÁ¶°Ç(SCOTT.SYS_C004030)ÀÌ À§¹èµÇ¾ú½À´Ï´Ù- ºÎ¸ð Å°°¡
+¾ø½À´Ï´Ù 
+
+
+SQL> alter table ex20 disable SYS_C004030;
+alter table ex20 disable SYS_C004030
+                         *
+1Çà¿¡ ¿À·ù:
+ORA-00905: ´©¶ôµÈ Å°¿öµå 
+
+
+SQL> alter table ex20 disable constraint SYS_C004030;
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex20 values (6666,'new2',5);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> alter table ex20 enable constraint SYS_C004030;
+alter table ex20 enable constraint SYS_C004030
+                                   *
+1Çà¿¡ ¿À·ù:
+ORA-02298: Á¦¾à (SCOTT.SYS_C004030)À» »ç¿ë °¡´ÉÇÏ°Ô ÇÒ ¼ö ¾øÀ½ - ºÎ¸ð Å°°¡
+¾ø½À´Ï´Ù 
+
+
+SQL> insert into ex21 values (5,'°ü¸®');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> alter table ex20 enable constraint SYS_C004030;
+
+Å×ÀÌºíÀÌ º¯°æµÇ¾ú½À´Ï´Ù.
+
+SQL> ed ex22.sql
+
+SQL> @ex22.sql
+		check (gender in('ë‚¨','ì—¬'))
+		                       *
+5Çà¿¡ ¿À·ù:
+ORA-00907: ´©¶ôµÈ ¿ì°ýÈ£ 
+
+
+SQL> ed ex22.sql
+
+SQL> @ex22.sql
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex22 values (1111,'user1','M');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex22 values (2222,'user2','F');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex22 values (3333,'user3','m');
+insert into ex22 values (3333,'user3','m')
+*
+1Çà¿¡ ¿À·ù:
+ORA-02290: Ã¼Å© Á¦¾àÁ¶°Ç(SCOTT.SYS_C004032)ÀÌ À§¹èµÇ¾ú½À´Ï´Ù 
+
+
+SQL> ed ex22.sql
+
+SQL> @ex22.sql
+
+Å×ÀÌºíÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+
+Å×ÀÌºíÀÌ »ý¼ºµÇ¾ú½À´Ï´Ù.
+
+SQL> insert into ex22 values (1111,'user1','M',1);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex22 values (2222,'user2','M',120);
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> insert into ex22 values (3333,'user3','M',0);
+insert into ex22 values (3333,'user3','M',0)
+*
+1Çà¿¡ ¿À·ù:
+ORA-02290: Ã¼Å© Á¦¾àÁ¶°Ç(SCOTT.SYS_C004036)ÀÌ À§¹èµÇ¾ú½À´Ï´Ù 
+
+
+SQL> insert into ex22 values (3333,'user3','M',121);
+insert into ex22 values (3333,'user3','M',121)
+*
+1Çà¿¡ ¿À·ù:
+ORA-02290: Ã¼Å© Á¦¾àÁ¶°Ç(SCOTT.SYS_C004036)ÀÌ À§¹èµÇ¾ú½À´Ï´Ù 
+
+
+SQL> select * from ex21,ex22;
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                           GE        AGE                                    
+------------------------------ -- ----------                                    
+         1 ¿µ¾÷                                 1111                            
+user1                          M           1                                    
+                                                                                
+         2 È¸°è                                 1111                            
+user1                          M           1                                    
+                                                                                
+         3 »ý»ê                                 1111                            
+user1                          M           1                                    
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                           GE        AGE                                    
+------------------------------ -- ----------                                    
+         4 ÃÑ¹«                                 1111                            
+user1                          M           1                                    
+                                                                                
+         5 °ü¸®                                 1111                            
+user1                          M           1                                    
+                                                                                
+         1 ¿µ¾÷                                 2222                            
+user2                          M         120                                    
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                           GE        AGE                                    
+------------------------------ -- ----------                                    
+         2 È¸°è                                 2222                            
+user2                          M         120                                    
+                                                                                
+         3 »ý»ê                                 2222                            
+user2                          M         120                                    
+                                                                                
+         4 ÃÑ¹«                                 2222                            
+user2                          M         120                                    
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                           GE        AGE                                    
+------------------------------ -- ----------                                    
+         5 °ü¸®                                 2222                            
+user2                          M         120                                    
+                                                                                
+
+10 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex20,ex21;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          1                 
+¿µ¾÷                                                                            
+                                                                                
+      3333 user3                                   3          1                 
+¿µ¾÷                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      5555 new1                                    4          1                 
+¿µ¾÷                                                                            
+                                                                                
+      6666 new2                                    5          1                 
+¿µ¾÷                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3          2                 
+È¸°è                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      5555 new1                                    4          2                 
+È¸°è                                                                            
+                                                                                
+      6666 new2                                    5          2                 
+È¸°è                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+      2222 user2                                   2          3                 
+»ý»ê                                                                            
+                                                                                
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+      5555 new1                                    4          3                 
+»ý»ê                                                                            
+                                                                                
+      6666 new2                                    5          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          4                 
+ÃÑ¹«                                                                            
+                                                                                
+      2222 user2                                   2          4                 
+ÃÑ¹«                                                                            
+                                                                                
+      3333 user3                                   3          4                 
+ÃÑ¹«                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          4                 
+ÃÑ¹«                                                                            
+                                                                                
+      5555 new1                                    4          4                 
+ÃÑ¹«                                                                            
+                                                                                
+      6666 new2                                    5          4                 
+ÃÑ¹«                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          5                 
+°ü¸®                                                                            
+                                                                                
+      2222 user2                                   2          5                 
+°ü¸®                                                                            
+                                                                                
+      3333 user3                                   3          5                 
+°ü¸®                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          5                 
+°ü¸®                                                                            
+                                                                                
+      5555 new1                                    4          5                 
+°ü¸®                                                                            
+                                                                                
+      6666 new2                                    5          5                 
+°ü¸®                                                                            
+                                                                                
+
+30 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 user4                                   1                            
+      5555 new1                                    4                            
+      6666 new2                                    5                            
+
+6 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> delete from ex20 where sabun=5555 and sabun=6666;
+
+0 ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> delete from ex20 where sabun=5555 or sabun=6666;
+
+2 ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex20;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+      1111 user1                                   1                            
+      2222 user2                                   2                            
+      3333 user3                                   3                            
+      4444 user4                                   1                            
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 ¿µ¾÷                                                                 
+         2 È¸°è                                                                 
+         3 »ý»ê                                                                 
+         4 ÃÑ¹«                                                                 
+         5 °ü¸®                                                                 
+
+SQL> delete from ex21 where num in(4,5);
+
+2 ÇàÀÌ »èÁ¦µÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 ¿µ¾÷                                                                 
+         2 È¸°è                                                                 
+         3 »ý»ê                                                                 
+
+SQL> select * from ex20,ex21;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          1                 
+¿µ¾÷                                                                            
+                                                                                
+      3333 user3                                   3          1                 
+¿µ¾÷                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      1111 user1                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      3333 user3                                   3          2                 
+È¸°è                                                                            
+                                                                                
+      4444 user4                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      1111 user1                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      2222 user2                                   2          3                 
+»ý»ê                                                                            
+                                                                                
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+      4444 user4                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+
+12 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex20,ex21 where num=num;
+select * from ex20,ex21 where num=num
+                                  *
+1Çà¿¡ ¿À·ù:
+ORA-00918: ¿­ÀÇ Á¤ÀÇ°¡ ¾Ö¸ÅÇÕ´Ï´Ù 
+
+
+SQL> select * from ex20,ex21 where ex20.num=ex21.num;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+
+SQL> select name,job from ex20,ex21 where ex20.num=ex21.num;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          ¿µ¾÷                                             
+user2                          È¸°è                                             
+user3                          »ý»ê                                             
+user4                          ¿µ¾÷                                             
+
+SQL> select sabun,name,job from ex20,ex21 where ex20.num=ex21.num;
+
+     SABUN NAME                           JOB                                   
+---------- ------------------------------ ------------------------------        
+      1111 user1                          ¿µ¾÷                                  
+      2222 user2                          È¸°è                                  
+      3333 user3                          »ý»ê                                  
+      4444 user4                          ¿µ¾÷                                  
+
+SQL> select sabun,name,num,job from ex20,ex21 where ex20.num=ex21.num;
+select sabun,name,num,job from ex20,ex21 where ex20.num=ex21.num
+                  *
+1Çà¿¡ ¿À·ù:
+ORA-00918: ¿­ÀÇ Á¤ÀÇ°¡ ¾Ö¸ÅÇÕ´Ï´Ù 
+
+
+SQL> select sabun,name,ex20.num,job from ex20,ex21 where ex20.num=ex21.num;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1                            
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2                            
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3                            
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1                            
+¿µ¾÷                                                                            
+                                                                                
+
+SQL> select sabun,name,ex21.num,job from ex20,ex21 where ex20.num=ex21.num;
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1                            
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2                            
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3                            
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM                            
+---------- ------------------------------ ----------                            
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1                            
+¿µ¾÷                                                                            
+                                                                                
+
+SQL> select ex20.sabun,ex20.name,ex21.job from ex20,ex21 where ex20.num=ex21.num;
+
+     SABUN NAME                           JOB                                   
+---------- ------------------------------ ------------------------------        
+      1111 user1                          ¿µ¾÷                                  
+      2222 user2                          È¸°è                                  
+      3333 user3                          »ý»ê                                  
+      4444 user4                          ¿µ¾÷                                  
+
+SQL> select ex20.sabun as "»ç¹ø",ex20.name,ex21.job from ex20,ex21 where ex20.num=ex21.num;
+
+      »ç¹ø NAME                           JOB                                   
+---------- ------------------------------ ------------------------------        
+      1111 user1                          ¿µ¾÷                                  
+      2222 user2                          È¸°è                                  
+      3333 user3                          »ý»ê                                  
+      4444 user4                          ¿µ¾÷                                  
+
+SQL> select name,job from ex20 A,ex21 B where A.num=B.num;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          ¿µ¾÷                                             
+user2                          È¸°è                                             
+user3                          »ý»ê                                             
+user4                          ¿µ¾÷                                             
+
+SQL> select name,job from ex20 a,ex21 b where a.num=b.num;
+
+NAME                           JOB                                              
+------------------------------ ------------------------------                   
+user1                          ¿µ¾÷                                             
+user2                          È¸°è                                             
+user3                          »ý»ê                                             
+user4                          ¿µ¾÷                                             
+
+SQL> select a.num,name,job from ex20 a,ex21 b where a.num=b.num;
+
+       NUM NAME                           JOB                                   
+---------- ------------------------------ ------------------------------        
+         1 user1                          ¿µ¾÷                                  
+         2 user2                          È¸°è                                  
+         3 user3                          »ý»ê                                  
+         1 user4                          ¿µ¾÷                                  
+
+SQL> select a.num,a.name,b.job from ex20 a,ex21 b where a.num=b.num;
+
+       NUM NAME                           JOB                                   
+---------- ------------------------------ ------------------------------        
+         1 user1                          ¿µ¾÷                                  
+         2 user2                          È¸°è                                  
+         3 user3                          »ý»ê                                  
+         1 user4                          ¿µ¾÷                                  
+
+SQL> select a.num,a.name,b.job from ex20 a,ex21 b where a.num!=b.num;
+
+       NUM NAME                           JOB                                   
+---------- ------------------------------ ------------------------------        
+         2 user2                          ¿µ¾÷                                  
+         3 user3                          ¿µ¾÷                                  
+         1 user1                          È¸°è                                  
+         3 user3                          È¸°è                                  
+         1 user4                          È¸°è                                  
+         1 user1                          »ý»ê                                  
+         2 user2                          »ý»ê                                  
+         1 user4                          »ý»ê                                  
+
+8 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex21;
+
+       NUM JOB                                                                  
+---------- ------------------------------                                       
+         1 ¿µ¾÷                                                                 
+         2 È¸°è                                                                 
+         3 »ý»ê                                                                 
+
+SQL> insert into ex21 values (4,'°ü¸®');
+
+1 °³ÀÇ ÇàÀÌ ¸¸µé¾îÁ³½À´Ï´Ù.
+
+SQL> select * from ex20 a,ex21 b;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      1111 user1                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      1111 user1                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          4                 
+°ü¸®                                                                            
+                                                                                
+      2222 user2                                   2          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      2222 user2                                   2          3                 
+»ý»ê                                                                            
+                                                                                
+      2222 user2                                   2          4                 
+°ü¸®                                                                            
+                                                                                
+      3333 user3                                   3          1                 
+¿µ¾÷                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      3333 user3                                   3          2                 
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+      3333 user3                                   3          4                 
+°ü¸®                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      4444 user4                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      4444 user4                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          4                 
+°ü¸®                                                                            
+                                                                                
+
+16 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex20 a,ex21 b where a.num=b.num;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+
+SQL> select * from ex20 a,ex21 b where a.num!=b.num;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      1111 user1                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+      1111 user1                                   1          4                 
+°ü¸®                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      2222 user2                                   2          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          3                 
+»ý»ê                                                                            
+                                                                                
+      2222 user2                                   2          4                 
+°ü¸®                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      3333 user3                                   3          1                 
+¿µ¾÷                                                                            
+                                                                                
+      3333 user3                                   3          2                 
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3          4                 
+°ü¸®                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          2                 
+È¸°è                                                                            
+                                                                                
+      4444 user4                                   1          3                 
+»ý»ê                                                                            
+                                                                                
+      4444 user4                                   1          4                 
+°ü¸®                                                                            
+                                                                                
+
+12 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from ex20 a,ex21 b where a.num=b.num;
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+
+SQL> select * from ex20 a,ex21 b where b.num=a.num(+);
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      1111 user1                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+      2222 user2                                   2          2                 
+È¸°è                                                                            
+                                                                                
+      3333 user3                                   3          3                 
+»ý»ê                                                                            
+                                                                                
+
+     SABUN NAME                                  NUM        NUM                 
+---------- ------------------------------ ---------- ----------                 
+JOB                                                                             
+------------------------------                                                  
+      4444 user4                                   1          1                 
+¿µ¾÷                                                                            
+                                                                                
+                                                              4                 
+°ü¸®                                                                            
+                                                                                
+
+SQL> select * from ex21 a,ex20 b where a.num=b.num(+);
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         1 ¿µ¾÷                                 1111                            
+user1                                   1                                       
+                                                                                
+         2 È¸°è                                 2222                            
+user2                                   2                                       
+                                                                                
+         3 »ý»ê                                 3333                            
+user3                                   3                                       
+                                                                                
+
+       NUM JOB                                 SABUN                            
+---------- ------------------------------ ----------                            
+NAME                                  NUM                                       
+------------------------------ ----------                                       
+         1 ¿µ¾÷                                 4444                            
+user4                                   1                                       
+                                                                                
+         4 °ü¸®                                                                 
+                                                                                
+                                                                                
+
+SQL> select a.job,b.name from ex21 a,ex20 b where a.num=b.num(+);
+
+JOB                            NAME                                             
+------------------------------ ------------------------------                   
+¿µ¾÷                           user1                                            
+È¸°è                           user2                                            
+»ý»ê                           user3                                            
+¿µ¾÷                           user4                                            
+°ü¸®                                                                            
+
+SQL> select ename,mgr from emp;
+
+ENAME                       MGR                                                 
+-------------------- ----------                                                 
+SMITH                      7902                                                 
+ALLEN                      7698                                                 
+WARD                       7698                                                 
+JONES                      7839                                                 
+MARTIN                     7698                                                 
+BLAKE                      7839                                                 
+CLARK                      7839                                                 
+SCOTT                      7566                                                 
+KING                                                                            
+TURNER                     7698                                                 
+ADAMS                      7788                                                 
+
+ENAME                       MGR                                                 
+-------------------- ----------                                                 
+JAMES                      7698                                                 
+FORD                       7566                                                 
+MILLER                     7782                                                 
+
+14 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select empno,ename,mgr from emp;
+
+     EMPNO ENAME                       MGR                                      
+---------- -------------------- ----------                                      
+      7369 SMITH                      7902                                      
+      7499 ALLEN                      7698                                      
+      7521 WARD                       7698                                      
+      7566 JONES                      7839                                      
+      7654 MARTIN                     7698                                      
+      7698 BLAKE                      7839                                      
+      7782 CLARK                      7839                                      
+      7788 SCOTT                      7566                                      
+      7839 KING                                                                 
+      7844 TURNER                     7698                                      
+      7876 ADAMS                      7788                                      
+
+     EMPNO ENAME                       MGR                                      
+---------- -------------------- ----------                                      
+      7900 JAMES                      7698                                      
+      7902 FORD                       7566                                      
+      7934 MILLER                     7782                                      
+
+14 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> select * from emp,emp;
+select * from emp,emp
+       *
+1Çà¿¡ ¿À·ù:
+ORA-00918: ¿­ÀÇ Á¤ÀÇ°¡ ¾Ö¸ÅÇÕ´Ï´Ù 
+
+
+SQL> select a.name,b.name from emp A,emp B;
+select a.name,b.name from emp A,emp B
+              *
+1Çà¿¡ ¿À·ù:
+ORA-00904: "B"."NAME": ºÎÀûÇÕÇÑ ½Äº°ÀÚ 
+
+
+SQL> select a.name,b.name from emp A,emp B where a.mgr=b.empno;
+select a.name,b.name from emp A,emp B where a.mgr=b.empno
+              *
+1Çà¿¡ ¿À·ù:
+ORA-00904: "B"."NAME": ºÎÀûÇÕÇÑ ½Äº°ÀÚ 
+
+
+SQL> select a.ename,b.ename from emp A,emp B where a.mgr=b.empno;
+
+ENAME                ENAME                                                      
+-------------------- --------------------                                       
+SMITH                FORD                                                       
+ALLEN                BLAKE                                                      
+WARD                 BLAKE                                                      
+JONES                KING                                                       
+MARTIN               BLAKE                                                      
+BLAKE                KING                                                       
+CLARK                KING                                                       
+SCOTT                JONES                                                      
+TURNER               BLAKE                                                      
+ADAMS                SCOTT                                                      
+JAMES                BLAKE                                                      
+
+ENAME                ENAME                                                      
+-------------------- --------------------                                       
+FORD                 JONES                                                      
+MILLER               CLARK                                                      
+
+13 °³ÀÇ ÇàÀÌ ¼±ÅÃµÇ¾ú½À´Ï´Ù.
+
+SQL> spool off
